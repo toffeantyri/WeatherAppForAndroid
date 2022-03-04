@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">WeatherApp</string>
+    <string name="test">Test Text</string>
+
+    <string name="min_text">min</string>
+    <string name="max_text">max</string>
+
+
+
 </resources>

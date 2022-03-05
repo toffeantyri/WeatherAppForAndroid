@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.button.MaterialButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_main_menu"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -20,7 +20,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_main_setting"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -71,9 +71,10 @@
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toTopOf="@+id/guideline1"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:src="@mipmap/Unionx4" />
+            tools:src="@mipmap/unionx4" />
 
         <LinearLayout
+            android:theme="@style/AdditionalWeatherInfo"
             android:id="@+id/linear_status_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -110,6 +111,7 @@
                android:includeFontPadding="false"
                android:theme="@style/MainTextBar"
                />
+               <!--android:autoSizeMinTextSize="80dp"-->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -136,12 +138,12 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="1dp"
+                style="@style/DeviderStyle"
                 android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:orientation="vertical"
-                android:background="@color/Divider_color"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"/>
+                />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -160,13 +162,136 @@
                     android:layout_gravity="center"
                     tools:text="35\u00b0" />
             </LinearLayout>
-
-
-
-
         </LinearLayout>
 
 
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline1"
+            android:theme="@style/AdditionalWeatherInfo">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    style="@style/AdditionalWeatherInfoIcon"
+                    android:src="@drawable/ic_thermostat"
+                    />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/thermostat_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    tools:text="20" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    style="@style/AdditionalWeatherInfoIcon"
+                    android:src="@drawable/ic_water_drop" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/water_drop_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    tools:text="35%" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    style="@style/AdditionalWeatherInfoIcon"
+                    android:src="@drawable/ic_oblako_24" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/oblako_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    tools:text="55" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"
+            android:id="@+id/guideline2"
+            />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:theme="@style/AdditionalWeatherInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout2">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    style="@style/AdditionalWeatherInfoIcon"
+                    android:src="@drawable/ic_sun_24dp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/sunrise_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    tools:text="6:00" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    style="@style/AdditionalWeatherInfoIcon"
+                    android:src="@drawable/ic_sunset" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/sunset_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    tools:text="20:00" />
+            </LinearLayout>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

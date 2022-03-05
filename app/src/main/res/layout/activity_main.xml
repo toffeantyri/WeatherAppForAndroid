@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -63,78 +63,84 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.45" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="1.05" />
+
         <ImageView
             android:id="@+id/iv_weather_image"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:cropToPadding="false"
-            android:scaleType="fitCenter"
             app:layout_constraintBottom_toTopOf="@+id/guideline1"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline3"
             tools:src="@mipmap/unionx4" />
 
-        <LinearLayout
-            android:theme="@style/AdditionalWeatherInfo"
-            android:id="@+id/linear_status_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toStartOf="@+id/iv_weather_image"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_weather_image">
-            <ImageView
-                android:id="@+id/iv_weather_status"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                tools:src="@drawable/ic_sun_24dp" />
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_status_weather"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textStyle="normal"
-                tools:text="Clear sky"
-                android:layout_marginStart="10dp"
-                android:layout_gravity="center"/>
-        </LinearLayout>
 
-           <com.google.android.material.textview.MaterialTextView
-               android:id="@+id/tv_current_temperature"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textSize="98sp"
-               tools:text="25\u00B0"
-               app:layout_constraintTop_toBottomOf="@id/linear_status_container"
-               app:layout_constraintStart_toStartOf="@id/linear_status_container"
-               app:layout_constraintEnd_toEndOf="@id/linear_status_container"
-               android:includeFontPadding="false"
-               android:theme="@style/MainTextBar"
-               />
-               <!--android:autoSizeMinTextSize="80dp"-->
+        <ImageView
+            android:id="@+id/iv_weather_status"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_current_temperature"
+            app:layout_constraintStart_toStartOf="@+id/tv_current_temperature"
+            tools:src="@drawable/ic_sun_24dp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_status_weather"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_weather_status"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toEndOf="@+id/iv_weather_status"
+            app:layout_constraintTop_toTopOf="@+id/iv_weather_status"
+            tools:text="Clear sky" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_current_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:textSize="98sp"
+            android:theme="@style/MainTextBar"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout3"
+            tools:text="25\u00B0" />
+        <!--android:autoSizeMinTextSize="80dp"-->
         <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/tv_current_temperature"
-            app:layout_constraintStart_toStartOf="@id/tv_current_temperature"
-            app:layout_constraintEnd_toEndOf="@id/tv_current_temperature"
-            >
+            app:layout_constraintBottom_toTopOf="@+id/guideline1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:theme="@style/MainTextBar">
+
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/min_text"/>
+                    android:text="@string/min_text" />
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/min_temp_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="15\u00b0"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    tools:text="15\u00b0" />
             </LinearLayout>
 
             <LinearLayout
@@ -142,18 +148,18 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:orientation="vertical"
-                />
+                android:orientation="vertical" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:theme="@style/MainTextBar">
+
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/max_text"/>
+                    android:text="@string/max_text" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/max_temp_value"
@@ -185,16 +191,15 @@
 
                 <ImageView
                     style="@style/AdditionalWeatherInfoIcon"
-                    android:src="@drawable/ic_thermostat"
-                    />
+                    android:src="@drawable/ic_thermostat" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/thermostat_status"
+                    android:id="@+id/davlenie_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
-                    tools:text="20" />
+                    tools:text="1.5 hPa" />
             </LinearLayout>
 
             <LinearLayout
@@ -208,7 +213,7 @@
                     android:src="@drawable/ic_water_drop" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/water_drop_status"
+                    android:id="@+id/vlazhnost_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -226,12 +231,12 @@
                     android:src="@drawable/ic_oblako_24" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/oblako_status"
+                    android:id="@+id/skorost_vetra_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
-                    tools:text="55" />
+                    tools:text="5 m/s" />
             </LinearLayout>
         </LinearLayout>
 
@@ -240,8 +245,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5"
-            android:id="@+id/guideline2"
-            />
+            android:id="@+id/guideline2" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -293,5 +297,61 @@
             </LinearLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:background="@drawable/bg_bottom_sheets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_bottom_sheets"
+        style="?attr/bottomSheetStyle"
+        android:elevation="8dp"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="160dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        android:layout_gravity="end">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottom_sheets_main_container"
+            android:orientation="vertical"
+            android:elevation="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval_grey"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                android:layout_gravity="center" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_hourly_rc_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:layout_marginBottom="8dp"
+                tools:layout_height="80dp" />
+
+            <LinearLayout
+                style="@style/DeviderStyle"
+                android:layout_width="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_daily_rc_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:layout_marginBottom="8dp"
+                tools:layout_height="160dp" />
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

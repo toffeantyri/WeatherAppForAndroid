@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        >
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="29 april"
+            style="@style/MainTextBar"
+            android:id="@+id/tv_daily_date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_daily_weath_stat"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_oblako_24"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_daily_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_daily_date" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_vlazhnost_daily"
+            style="@style/MainTextBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20%"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_daily_date"
+            app:layout_constraintStart_toEndOf="@id/iv_daily_weath_stat"
+            app:layout_constraintTop_toTopOf="@id/tv_daily_date" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_mintemp_daily"
+            style="@style/MainTextBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:gravity="end"
+            android:text="15\u00B0"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_daily_date"
+            app:layout_constraintEnd_toStartOf="@id/divider_daily"
+            app:layout_constraintTop_toTopOf="@id/tv_daily_date" />
+
+        <LinearLayout
+            android:id="@+id/divider_daily"
+            style="@style/DeviderStyle"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_daily_date"
+            app:layout_constraintEnd_toStartOf="@id/tv_maxtemp_daily"
+            app:layout_constraintTop_toTopOf="@id/tv_daily_date"
+            android:layout_marginEnd="10dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_maxtemp_daily"
+            style="@style/MainTextBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="25\u00b0"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_daily_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_daily_date"
+            android:layout_marginEnd="10dp"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

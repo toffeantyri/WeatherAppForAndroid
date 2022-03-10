@@ -2,9 +2,18 @@ package ru.weather.weathertoday
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Adapter
+import android.widget.LinearLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    lateinit var adapterHourly : AdapterHourlyWeather
+    lateinit var adapterDaily : AdapterDailyWeather
+
+    lateinit var listHourly: ArrayList<HourlyItem>
+    lateinit var listDaily: ArrayList<DailyItem>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +35,25 @@ class MainActivity : AppCompatActivity() {
         sunrise_status.text = "6:00"
         sunset_status.text = "20:00"
 
+        val d = HourlyItem("20:00","25",R.drawable.ic_oblako_24, "25" )
+        val r = DailyItem("20 april", R.drawable.ic_oblako_24, "50", "25", "50")
 
+        listHourly = arrayListOf(d,d,d,d,d,d,d,d,d,d,d,d,d)
+        listDaily = arrayListOf(r,r,r,r,r,r,r,r,r,r,r)
+        initRvHourly()
+        initRvDaily()
 
+    }
+
+    fun initRvHourly(){
+        adapterHourly = AdapterHourlyWeather(listHourly)
+        main_hourly_rc_list.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        main_hourly_rc_list.adapter = adapterHourly
+    }
+
+    fun initRvDaily(){
+        adapterDaily = AdapterDailyWeather(listDaily)
+        main_daily_rc_list.layoutManager = LinearLayoutManager(this)
+        main_daily_rc_list.adapter = adapterDaily
     }
 }

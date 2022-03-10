@@ -179,6 +179,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintVertical_bias="0.3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline1"
             android:theme="@style/AdditionalWeatherInfo">
@@ -306,7 +307,7 @@
         style="?attr/bottomSheetStyle"
         android:elevation="8dp"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="160dp"
+        app:behavior_peekHeight="120dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         android:layout_gravity="end">
 
@@ -332,7 +333,8 @@
                 android:layout_height="wrap_content"
                 android:overScrollMode="never"
                 android:layout_marginBottom="8dp"
-                tools:layout_height="80dp" />
+                tools:layout_height="80dp"
+                />
 
             <LinearLayout
                 style="@style/DeviderStyle"

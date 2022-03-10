@@ -2,10 +2,12 @@ package ru.weather.weathertoday
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Adapter
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import ru.weather.weathertoday.view.DailyItem
+import ru.weather.weathertoday.view.HourlyItem
+import ru.weather.weathertoday.view.mainAdapters.AdapterDailyWeather
+import ru.weather.weathertoday.view.mainAdapters.AdapterHourlyWeather
 
 class MainActivity : AppCompatActivity() {
     lateinit var adapterHourly : AdapterHourlyWeather
@@ -49,11 +51,15 @@ class MainActivity : AppCompatActivity() {
         adapterHourly = AdapterHourlyWeather(listHourly)
         main_hourly_rc_list.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
         main_hourly_rc_list.adapter = adapterHourly
+        main_hourly_rc_list.setHasFixedSize(true)
     }
 
     fun initRvDaily(){
         adapterDaily = AdapterDailyWeather(listDaily)
-        main_daily_rc_list.layoutManager = LinearLayoutManager(this)
-        main_daily_rc_list.adapter = adapterDaily
+        main_daily_rc_list.apply {
+            adapter = adapterDaily
+            layoutManager = LinearLayoutManager(this@MainActivity,LinearLayoutManager.VERTICAL,false)
+            setHasFixedSize(true)
+        }
     }
 }

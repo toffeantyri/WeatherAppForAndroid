@@ -1,12 +1,13 @@
-package ru.weather.weathertoday
+package ru.weather.weathertoday.view.mainAdapters
 
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
+import ru.weather.weathertoday.view.HourlyItem
+import ru.weather.weathertoday.R
 
 class AdapterHourlyWeather(list: ArrayList<HourlyItem>) : RecyclerView.Adapter<AdapterHourlyWeather.HourlyViewHolder>() {
     val adapterList = list

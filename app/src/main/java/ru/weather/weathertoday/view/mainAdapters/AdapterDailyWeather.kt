@@ -5,40 +5,54 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import butterknife.BindView
+import butterknife.ButterKnife
 import com.google.android.material.textview.MaterialTextView
 import ru.weather.weathertoday.view.DailyItem
 import ru.weather.weathertoday.R
+import ru.weather.weathertoday.busined.model.DaylyResultModel
 
-class AdapterDailyWeather(list: ArrayList<DailyItem>) : RecyclerView.Adapter<AdapterDailyWeather.DailyViewHolder>() {
-    val adapterListDaily = list
+class AdapterDailyWeather() : BaseAdapters<DaylyResultModel>()  {
 
-    class DailyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val dayData : MaterialTextView = itemView.findViewById(R.id.tv_daily_date)
-        val dayImage : ImageView = itemView.findViewById(R.id.iv_daily_weath_stat)
-        val dayVlazhn : MaterialTextView = itemView.findViewById(R.id.tv_vlazhnost_daily)
-        val dayMinTemp : MaterialTextView = itemView.findViewById(R.id.tv_mintemp_daily)
-        val dayMaxTemp : MaterialTextView = itemView.findViewById(R.id.tv_maxtemp_daily)
-
-        fun bind(itemDaily: DailyItem){
-            dayData.text = itemDaily.date
-            dayImage.setImageResource(itemDaily.image)
-            dayVlazhn.text = itemDaily.vlazhnost
-            dayMinTemp.text = itemDaily.minTemp
-            dayMaxTemp.text = itemDaily.maxTemp
-        }
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return DailyViewHolder(inflater.inflate(R.layout.item_rc_daily_list,parent,false))
     }
 
-    override fun onBindViewHolder(holder: DailyViewHolder, position: Int) {
-        holder.bind(adapterListDaily[position])
+
+    class DailyViewHolder(itemView: View) : BaseAdapters.BaseViewHolder(itemView) {
+        @BindView(R.id.tv_daily_date)
+        lateinit var date : MaterialTextView
+
+        @BindView(R.id.tv_vlazhnost_daily)
+        lateinit var poprate : MaterialTextView
+
+        @BindView(R.id.tv_mintemp_daily)
+        lateinit var tempMin : MaterialTextView
+
+        @BindView(R.id.tv_maxtemp_daily)
+        lateinit var tempMax : MaterialTextView
+
+        @BindView(R.id.iv_daily_weath_stat)
+        lateinit var image: ImageView
+
+        init {
+            ButterKnife.bind(this,itemView)
+        }
+
+
+        override fun bindView(position: Int) {
+            date.text = "9 May"
+            poprate.text = "50" + "%"
+            tempMin.text = "10\u00b0"
+            tempMax.text = "20\u00b0"
+            image.setImageResource(R.drawable.ic_water_drop)
+        }
+
     }
 
-    override fun getItemCount(): Int {
-        return adapterListDaily.size
-    }
+
+
 
 }

@@ -48,14 +48,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun initRvHourly(){
-        adapterHourly = AdapterHourlyWeather(listHourly)
-        main_hourly_rc_list.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        adapterHourly = AdapterHourlyWeather()
+        main_hourly_rc_list.layoutManager = LinearLayoutManager(this@MainActivity,LinearLayoutManager.HORIZONTAL,false)
         main_hourly_rc_list.adapter = adapterHourly
         main_hourly_rc_list.setHasFixedSize(true)
     }
 
     fun initRvDaily(){
-        adapterDaily = AdapterDailyWeather(listDaily)
+        adapterDaily = AdapterDailyWeather()
         main_daily_rc_list.apply {
             adapter = adapterDaily
             layoutManager = LinearLayoutManager(this@MainActivity,LinearLayoutManager.VERTICAL,false)

@@ -1,10 +1,17 @@
 package ru.weather.weathertoday
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationManager
+import android.media.audiofx.Equalizer
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,6 +39,8 @@ class MainActivity : AppCompatActivity() {
     private val geoService by lazy { LocationServices.getFusedLocationProviderClient(this) }
     private val locationRequest by lazy { initLocationRequest() }
     private lateinit var mLocation: Location
+
+    lateinit var locationManager : LocationManager
     //-------------geo var ---------------------
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 
         //вызов этой функции будет в Initial Activity
         checkPermission()
+        checkAndOpenOptionGpsIfGpsOff()
 
 
         initTestView()
@@ -94,6 +104,28 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //проверка включен ли GPS
+    fun checkGpsStatus() : Boolean{
+        locationManager = applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return  locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+    }
+
+    //Если GPS отключен - откроется диалог и по кнопке Ок - откроются настройки включения GPS
+    fun checkAndOpenOptionGpsIfGpsOff(){
+        if(checkGpsStatus() == false) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("GPS отключен")
+            .setMessage("Перейти настройкам GPS")
+            .setPositiveButton("Ok"){ _,_ ->
+                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(intent)
+                            }
+            .setNegativeButton("cancel"){
+                dialog,_ -> dialog.dismiss()
+                Toast.makeText(this, "Текущее местоположение недоступно", Toast.LENGTH_SHORT).show()
+            }.create().show()
+        }
+    }
 
 //----------------------location code-----------------------
 
@@ -101,10 +133,9 @@ class MainActivity : AppCompatActivity() {
     private fun initLocationRequest(): LocationRequest {
         val request = LocationRequest.create()
         return request.apply {
-            interval = 10000 // ограничение по времени сколько будет ожидать обновления
-            fastestInterval = 5000
-            priority =
-                LocationRequest.PRIORITY_HIGH_ACCURACY // выбор самого быстрого и точного местоположения (большой расход батареи и тп)
+            interval = 30000 // ограничение по времени сколько будет ожидать обновления
+            fastestInterval = 15000
+            priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
         }
     }
 
@@ -118,6 +149,7 @@ class MainActivity : AppCompatActivity() {
                 mLocation = location
                 //TODO будет вызов вызова нашего  Presenter
                 Log.d(TAG, "onLocationResult locations: lat - ${location.latitude} ; lon - ${location.longitude} ")
+
             }
         }
     }

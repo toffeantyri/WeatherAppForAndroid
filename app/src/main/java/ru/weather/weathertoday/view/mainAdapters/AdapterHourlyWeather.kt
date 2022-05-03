@@ -4,15 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.android.material.textview.MaterialTextView
-import ru.weather.weathertoday.view.HourlyItem
 import ru.weather.weathertoday.R
-import ru.weather.weathertoday.busined.model.HourlyResultModel
+import ru.weather.weathertoday.busined.model.HourlyWeatherModel
 
-class AdapterHourlyWeather() : BaseAdapters<HourlyResultModel>() {
+class AdapterHourlyWeather() : BaseAdapters<HourlyWeatherModel>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HourlyViewHolder {
         val inflater = LayoutInflater.from(parent.context)

@@ -6,13 +6,10 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
-import android.media.audiofx.Equalizer
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.LocationCallback
@@ -21,27 +18,41 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_main.*
-import ru.weather.weathertoday.view.DailyItem
-import ru.weather.weathertoday.view.HourlyItem
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
+import ru.weather.weathertoday.busined.model.DaylyWeatherModel
+import ru.weather.weathertoday.busined.model.HourlyWeatherModel
+import ru.weather.weathertoday.busined.model.WeatherData
+import ru.weather.weathertoday.presenters.MainPresenter
+import ru.weather.weathertoday.view.MainView
+import ru.weather.weathertoday.view.mainAdapters.DailyItem
+import ru.weather.weathertoday.view.mainAdapters.HourlyItem
 import ru.weather.weathertoday.view.mainAdapters.AdapterDailyWeather
 import ru.weather.weathertoday.view.mainAdapters.AdapterHourlyWeather
 
 const val TAG = "GEO"
 const val GEO_LOCATION_REQUEST_CODE_SUCCESS = 1
 
-class MainActivity : AppCompatActivity() {
-    lateinit var adapterHourly: AdapterHourlyWeather
-    lateinit var adapterDaily: AdapterDailyWeather
-    lateinit var listHourly: ArrayList<HourlyItem>
-    lateinit var listDaily: ArrayList<DailyItem>
+class MainActivity : MvpAppCompatActivity(), MainView {
 
     //-------------geo var ---------------------
     private val geoService by lazy { LocationServices.getFusedLocationProviderClient(this) }
     private val locationRequest by lazy { initLocationRequest() }
     private lateinit var mLocation: Location
 
-    lateinit var locationManager : LocationManager
+    lateinit var locationManager: LocationManager
     //-------------geo var ---------------------
+
+    //-----------------adapters var ----------------------
+    lateinit var adapterHourly: AdapterHourlyWeather
+    lateinit var adapterDaily: AdapterDailyWeather
+    lateinit var listHourly: ArrayList<HourlyItem>
+    lateinit var listDaily: ArrayList<DailyItem>
+//-----------------adapters var ----------------------
+
+
+    private val mainPresenter by moxyPresenter { MainPresenter() }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,14 +64,20 @@ class MainActivity : AppCompatActivity() {
 
 
         initTestView()
+
+
         //add notNonull obj for adapters
-        val d = HourlyItem("20:00", "25", R.drawable.ic_oblako_24, "25")
-        val r = DailyItem("20 april", R.drawable.ic_oblako_24, "50", "25", "50")
-        listHourly = arrayListOf(d, d, d, d, d, d, d, d, d, d, d, d, d)
-        listDaily = arrayListOf(r, r, r, r, r, r, r, r, r, r, r)
+        //val d = HourlyItem("20:00", "25", R.drawable.ic_oblako_24, "25")
+        //val r = DailyItem("20 april", R.drawable.ic_oblako_24, "50", "25", "50")
+        //listHourly = arrayListOf(d, d, d, d, d, d, d, d, d, d, d, d, d)
+        //listDaily = arrayListOf(r, r, r, r, r, r, r, r, r, r, r)
         initRvHourly()
         initRvDaily()
         //---------------------------------------------------------------------------------------------------------------
+
+
+        //до обноления метосположения
+        mainPresenter.enable()
 
         //Обновление местоположения
         geoService.requestLocationUpdates(locationRequest, geoCallback, null)
@@ -80,7 +97,8 @@ class MainActivity : AppCompatActivity() {
         adapterDaily = AdapterDailyWeather()
         main_daily_rc_list.apply {
             adapter = adapterDaily
-            layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+            layoutManager =
+                LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
         }
     }
@@ -105,25 +123,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     //проверка включен ли GPS
-    fun checkGpsStatus() : Boolean{
-        locationManager = applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return  locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+    fun checkGpsStatus(): Boolean {
+        locationManager =
+            applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
 
     //Если GPS отключен - откроется диалог и по кнопке Ок - откроются настройки включения GPS
-    fun checkAndOpenOptionGpsIfGpsOff(){
-        if(checkGpsStatus() == false) {
-        MaterialAlertDialogBuilder(this)
-            .setTitle("GPS отключен")
-            .setMessage("Перейти настройкам GPS")
-            .setPositiveButton("Ok"){ _,_ ->
-                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivity(intent)
-                            }
-            .setNegativeButton("cancel"){
-                dialog,_ -> dialog.dismiss()
-                Toast.makeText(this, "Текущее местоположение недоступно", Toast.LENGTH_SHORT).show()
-            }.create().show()
+    fun checkAndOpenOptionGpsIfGpsOff() {
+        if (checkGpsStatus() == false) {
+            MaterialAlertDialogBuilder(this)
+                .setTitle("GPS отключен")
+                .setMessage("Перейти настройкам GPS")
+                .setPositiveButton("Ok") { _, _ ->
+                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                    startActivity(intent)
+                }
+                .setNegativeButton("cancel") { dialog, _ ->
+                    dialog.dismiss()
+                    Toast.makeText(this, "Текущее местоположение недоступно", Toast.LENGTH_SHORT)
+                        .show()
+                }.create().show()
         }
     }
 
@@ -141,23 +161,25 @@ class MainActivity : AppCompatActivity() {
 
 
     //переопределение функции CallBack Для обновления местоположения - тут инициализируем наше местоположение mLocation
-    //тут же должны быть методы/callBackи для презентера
+    //тут же должны быть методы/callBack для презентера
     private val geoCallback = object : LocationCallback() {
         override fun onLocationResult(p0: LocationResult) {
             for (location in p0.locations) {
                 Log.d(TAG, "onLocationResult locations count: ${p0.locations.size}")
                 mLocation = location
-                //TODO будет вызов вызова нашего  Presenter
-                Log.d(TAG, "onLocationResult locations: lat - ${location.latitude} ; lon - ${location.longitude} ")
-
+                mainPresenter.refresh(mLocation.latitude.toString(), mLocation.longitude.toString())
+                Log.d(TAG, "onLocationResult:lat: ${location.latitude}; lon: ${location.longitude}")
             }
         }
     }
 
 
-
     @SuppressLint("MissingSuperCall") // что бы не ждал вызова super (это метод внутри callbacka )
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         //тут будет майн активити запуск
         Log.d(TAG, "Request code : $requestCode")
         //TODO запуст MainActivity
@@ -168,6 +190,7 @@ class MainActivity : AppCompatActivity() {
     //это будет в initial ACTIVITY типа вход, там проверяется и запрашивается разрешение на доступ к местоположению
 
     //------------------initial Activity code--------------------
+
     private fun checkPermission() {
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -181,7 +204,7 @@ class MainActivity : AppCompatActivity() {
             MaterialAlertDialogBuilder(this)
                 .setTitle("Нам нужны гео данные")
                 .setMessage("Пожалуйства разрешите гео данные для продолжения работы приложения")
-                .setPositiveButton("Ok") { _,_ ->
+                .setPositiveButton("Ok") { _, _ ->
                     ActivityCompat.requestPermissions(
                         this,
                         arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
@@ -194,14 +217,56 @@ class MainActivity : AppCompatActivity() {
                         GEO_LOCATION_REQUEST_CODE_SUCCESS
                     )
                 }
-                .setNegativeButton("cancel") {
-                    dialog,_ -> dialog.dismiss()
+                .setNegativeButton("cancel") { dialog, _ ->
+                    dialog.dismiss()
                 }.create().show()
         }
     }
+
     //------------------initial Activity code--------------------
 
 
 //----------------------location code-----------------------
+
+
+    //---------------------------moxy code-----------------------------
+    override fun displayLocation(data: String) {
+        tv_main_city.text = data
+    }
+
+    override fun displayCurrentData(data: WeatherData) {
+        tv_main_city.text = "Moskow"
+        tv_main_date.text = "01.01.2022"
+
+        iv_weather_status.setImageDrawable(getDrawable(R.drawable.ic_oblako_24))
+        tv_status_weather.text = "Облачно"
+        tv_current_temperature.text = "25" + "\u00b0"
+        min_temp_value.text = "19"
+        max_temp_value.text = "32"
+
+        iv_weather_image.setImageResource(R.mipmap.unionx4)
+        davlenie_status.text = "15 mPa"
+        vlazhnost_status.text = "50%"
+        skorost_vetra_status.text = "15m/s"
+        sunrise_status.text = "6:00"
+        sunset_status.text = "20:00"
+    }
+
+    override fun displayHourlyData(data: List<HourlyWeatherModel>) {
+        (main_hourly_rc_list.adapter as AdapterHourlyWeather).updateData(data)
+    }
+
+    override fun displayDayliData(data: List<DaylyWeatherModel>) {
+        (main_daily_rc_list.adapter as AdapterDailyWeather).updateData(data)
+    }
+
+    override fun displayError(error: Throwable) {
+
+    }
+
+    override fun setLoading(flag: Boolean) {
+
+    }
+    //---------------------------moxy code-----------------------------
 
 }

@@ -25,6 +25,10 @@ android {
         targetCompatibility = 1.8
     }
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
 //    viewBinding{
 //        enabled = true
 //    }
@@ -49,7 +53,15 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.3'
     kapt 'com.jakewharton:butterknife-compiler:10.2.3'
 
-    //Geo-location
+    //Geo-location GPS
     implementation 'com.google.android.gms:play-services-location:18.0.0'
+
+    //moxy
+    implementation "com.github.moxy-community:moxy:2.1.2"
+    kapt "com.github.moxy-community:moxy-compiler:2.1.2"
+    implementation "com.github.moxy-community:moxy-androidx:2.1.2"
+    implementation "com.github.moxy-community:moxy-material:2.1.2"
+    implementation "com.github.moxy-community:moxy-ktx:2.1.2"
+
 
 }

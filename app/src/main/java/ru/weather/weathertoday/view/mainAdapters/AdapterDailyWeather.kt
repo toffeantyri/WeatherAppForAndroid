@@ -4,15 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.android.material.textview.MaterialTextView
-import ru.weather.weathertoday.view.DailyItem
 import ru.weather.weathertoday.R
-import ru.weather.weathertoday.busined.model.DaylyResultModel
+import ru.weather.weathertoday.busined.model.DaylyWeatherModel
 
-class AdapterDailyWeather() : BaseAdapters<DaylyResultModel>()  {
+class AdapterDailyWeather() : BaseAdapters<DaylyWeatherModel>()  {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyViewHolder {

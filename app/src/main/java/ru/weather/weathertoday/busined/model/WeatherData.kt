@@ -1,5 +1,5 @@
 package ru.weather.weathertoday.busined.model
 
-data class HourlyResultModel(val t: String) {
+data class WeatherData(val asd : String){
 
 }

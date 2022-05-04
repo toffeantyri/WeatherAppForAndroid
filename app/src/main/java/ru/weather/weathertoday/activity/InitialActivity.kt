@@ -1,4 +1,4 @@
-package ru.weather.weathertoday
+package ru.weather.weathertoday.activity
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import ru.weather.weathertoday.*
 
 
 const val GEO_LOCATION_REQUEST_CODE_SUCCESS = 1

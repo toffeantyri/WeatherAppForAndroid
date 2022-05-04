@@ -1,16 +1,13 @@
-package ru.weather.weathertoday
+package ru.weather.weathertoday.activity
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -20,9 +17,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
-import ru.weather.weathertoday.busined.model.DaylyWeatherModel
-import ru.weather.weathertoday.busined.model.HourlyWeatherModel
-import ru.weather.weathertoday.busined.model.WeatherData
+import ru.weather.weathertoday.R
+import ru.weather.weathertoday.busines.model.DaylyWeatherModel
+import ru.weather.weathertoday.busines.model.HourlyWeatherModel
+import ru.weather.weathertoday.busines.model.WeatherData
 import ru.weather.weathertoday.presenters.MainPresenter
 import ru.weather.weathertoday.view.MainView
 import ru.weather.weathertoday.view.mainAdapters.DailyItem

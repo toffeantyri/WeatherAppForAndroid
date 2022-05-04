@@ -3,6 +3,8 @@ package ru.weather.weathertoday
 import android.app.Application
 import android.content.Intent
 import android.util.Log
+import ru.weather.weathertoday.activity.InitialActivity
+import ru.weather.weathertoday.activity.TAG
 
 const val APP_SETTINGS = "App_settings"
 const val IS_STARTED_UP = "First_run"

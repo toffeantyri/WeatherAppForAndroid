@@ -8,7 +8,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.android.material.textview.MaterialTextView
 import ru.weather.weathertoday.R
-import ru.weather.weathertoday.busined.model.DaylyWeatherModel
+import ru.weather.weathertoday.busines.model.DaylyWeatherModel
 
 class AdapterDailyWeather() : BaseAdapters<DaylyWeatherModel>()  {
 

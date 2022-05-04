@@ -1,4 +1,4 @@
-package ru.weather.weathertoday.busined.model
+package ru.weather.weathertoday.busines.model
 
 data class WeatherData(val asd : String){
 

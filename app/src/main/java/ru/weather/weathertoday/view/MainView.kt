@@ -2,9 +2,9 @@ package ru.weather.weathertoday.view
 
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle
-import ru.weather.weathertoday.busined.model.DaylyWeatherModel
-import ru.weather.weathertoday.busined.model.HourlyWeatherModel
-import ru.weather.weathertoday.busined.model.WeatherData
+import ru.weather.weathertoday.busines.model.DaylyWeatherModel
+import ru.weather.weathertoday.busines.model.HourlyWeatherModel
+import ru.weather.weathertoday.busines.model.WeatherData
 
 interface MainView : MvpView {
 

@@ -29,6 +29,11 @@ class InitialActivity : AppCompatActivity() {
         Log.d(TAG, "Request code : $requestCode")
         if (requestCode == GEO_LOCATION_REQUEST_CODE_SUCCESS && permissions.isNotEmpty()) {
 
+            val preferences = getSharedPreferences(APP_SETTINGS, MODE_PRIVATE)
+            preferences.edit().apply {
+                putBoolean(IS_STARTED_UP, true)
+                apply()
+            }
 
             Log.d(TAG, " start MainActivity")
 
@@ -53,8 +58,8 @@ class InitialActivity : AppCompatActivity() {
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             MaterialAlertDialogBuilder(this)
-                .setTitle("Нам нужны гео данные")
-                .setMessage("Пожалуйства разрешите гео данные для продолжения работы приложения")
+                .setTitle("Требуются данные о местоположении")
+                .setMessage("Разрешить приложению доступ GPS для определения вашего местоположения?")
                 .setPositiveButton("Ok") { _, _ ->
                     ActivityCompat.requestPermissions(
                         this,
@@ -69,6 +74,7 @@ class InitialActivity : AppCompatActivity() {
                 }
                 .setNegativeButton("cancel") { dialog, _ ->
                     dialog.dismiss()
+                    finish()
                 }.create().show()
         }
     }

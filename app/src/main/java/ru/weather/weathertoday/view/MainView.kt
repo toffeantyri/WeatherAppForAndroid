@@ -19,7 +19,7 @@ interface MainView : MvpView {
     fun displayHourlyData(data: List<HourlyWeatherModel>)
 
     @AddToEndSingle
-    fun displayDayliData(data: List<DaylyWeatherModel>)
+    fun displayDaylyData(data: List<DaylyWeatherModel>)
 
     @AddToEndSingle
     fun displayError(error: Throwable)

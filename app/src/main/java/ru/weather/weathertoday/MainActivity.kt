@@ -31,17 +31,15 @@ import ru.weather.weathertoday.view.mainAdapters.AdapterDailyWeather
 import ru.weather.weathertoday.view.mainAdapters.AdapterHourlyWeather
 
 const val TAG = "GEO"
-const val GEO_LOCATION_REQUEST_CODE_SUCCESS = 1
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
-    //-------------geo var ---------------------
+//-------------geo var ---------------------
     private val geoService by lazy { LocationServices.getFusedLocationProviderClient(this) }
     private val locationRequest by lazy { initLocationRequest() }
     private lateinit var mLocation: Location
-
     lateinit var locationManager: LocationManager
-    //-------------geo var ---------------------
+//-------------geo var ---------------------
 
     //-----------------adapters var ----------------------
     lateinit var adapterHourly: AdapterHourlyWeather
@@ -57,20 +55,12 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        //вызов этой функции будет в Initial Activity
-        checkPermission()
-        checkAndOpenOptionGpsIfGpsOff()
+        Log.d(TAG, "onCreate MainActivity")
 
 
         initTestView()
 
 
-        //add notNonull obj for adapters
-        //val d = HourlyItem("20:00", "25", R.drawable.ic_oblako_24, "25")
-        //val r = DailyItem("20 april", R.drawable.ic_oblako_24, "50", "25", "50")
-        //listHourly = arrayListOf(d, d, d, d, d, d, d, d, d, d, d, d, d)
-        //listDaily = arrayListOf(r, r, r, r, r, r, r, r, r, r, r)
         initRvHourly()
         initRvDaily()
         //---------------------------------------------------------------------------------------------------------------
@@ -122,6 +112,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     }
 
+
     //проверка включен ли GPS
     fun checkGpsStatus(): Boolean {
         locationManager =
@@ -149,7 +140,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
 //----------------------location code-----------------------
 
-    //Инициализация loacationRequest
+    //Инициализация locationRequest (настройка получения запроса местоположения)
     private fun initLocationRequest(): LocationRequest {
         val request = LocationRequest.create()
         return request.apply {
@@ -160,8 +151,9 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     }
 
 
-    //переопределение функции CallBack Для обновления местоположения - тут инициализируем наше местоположение mLocation
-    //тут же должны быть методы/callBack для презентера
+    //CallBack Для обновления местоположения - после initLocationRequest
+    // тут получаем наше местоположение mLocation
+    // и отправляем его в презентер
     private val geoCallback = object : LocationCallback() {
         override fun onLocationResult(p0: LocationResult) {
             for (location in p0.locations) {
@@ -174,56 +166,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     }
 
 
-    @SuppressLint("MissingSuperCall") // что бы не ждал вызова super (это метод внутри callbacka )
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        //тут будет майн активити запуск
-        Log.d(TAG, "Request code : $requestCode")
-        //TODO запуст MainActivity
-        //super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
 
-
-    //это будет в initial ACTIVITY типа вход, там проверяется и запрашивается разрешение на доступ к местоположению
-
-    //------------------initial Activity code--------------------
-
-    private fun checkPermission() {
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            MaterialAlertDialogBuilder(this)
-                .setTitle("Нам нужны гео данные")
-                .setMessage("Пожалуйства разрешите гео данные для продолжения работы приложения")
-                .setPositiveButton("Ok") { _, _ ->
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                        GEO_LOCATION_REQUEST_CODE_SUCCESS
-                    )
-
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION),
-                        GEO_LOCATION_REQUEST_CODE_SUCCESS
-                    )
-                }
-                .setNegativeButton("cancel") { dialog, _ ->
-                    dialog.dismiss()
-                }.create().show()
-        }
-    }
-
-    //------------------initial Activity code--------------------
 
 
 //----------------------location code-----------------------
@@ -256,7 +199,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         (main_hourly_rc_list.adapter as AdapterHourlyWeather).updateData(data)
     }
 
-    override fun displayDayliData(data: List<DaylyWeatherModel>) {
+    override fun displayDaylyData(data: List<DaylyWeatherModel>) {
         (main_daily_rc_list.adapter as AdapterDailyWeather).updateData(data)
     }
 

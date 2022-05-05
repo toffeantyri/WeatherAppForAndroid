@@ -18,9 +18,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.weather.weathertoday.R
-import ru.weather.weathertoday.busines.model.DaylyWeatherModel
+import ru.weather.weathertoday.busines.model.DailyWeatherModel
 import ru.weather.weathertoday.busines.model.HourlyWeatherModel
-import ru.weather.weathertoday.busines.model.WeatherData
+import ru.weather.weathertoday.busines.model.WeatherDataModel
 import ru.weather.weathertoday.presenters.MainPresenter
 import ru.weather.weathertoday.view.MainView
 import ru.weather.weathertoday.view.mainAdapters.DailyItem
@@ -175,7 +175,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         tv_main_city.text = data
     }
 
-    override fun displayCurrentData(data: WeatherData) {
+    override fun displayCurrentData(data: WeatherDataModel) {
         tv_main_city.text = "Moskow"
         tv_main_date.text = "01.01.2022"
 
@@ -197,7 +197,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         (main_hourly_rc_list.adapter as AdapterHourlyWeather).updateData(data)
     }
 
-    override fun displayDaylyData(data: List<DaylyWeatherModel>) {
+    override fun displayDaylyData(data: List<DailyWeatherModel>) {
         (main_daily_rc_list.adapter as AdapterDailyWeather).updateData(data)
     }
 

@@ -2,9 +2,9 @@ package ru.weather.weathertoday.view
 
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle
-import ru.weather.weathertoday.busines.model.DaylyWeatherModel
+import ru.weather.weathertoday.busines.model.DailyWeatherModel
 import ru.weather.weathertoday.busines.model.HourlyWeatherModel
-import ru.weather.weathertoday.busines.model.WeatherData
+import ru.weather.weathertoday.busines.model.WeatherDataModel
 
 interface MainView : MvpView {
 
@@ -13,13 +13,13 @@ interface MainView : MvpView {
     fun displayLocation(data: String)
 
     @AddToEndSingle
-    fun displayCurrentData(data: WeatherData)
+    fun displayCurrentData(data: WeatherDataModel)
 
     @AddToEndSingle
     fun displayHourlyData(data: List<HourlyWeatherModel>)
 
     @AddToEndSingle
-    fun displayDaylyData(data: List<DaylyWeatherModel>)
+    fun displayDaylyData(data: List<DailyWeatherModel>)
 
     @AddToEndSingle
     fun displayError(error: Throwable)

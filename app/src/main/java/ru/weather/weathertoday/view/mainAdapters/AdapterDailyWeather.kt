@@ -8,9 +8,9 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.android.material.textview.MaterialTextView
 import ru.weather.weathertoday.R
-import ru.weather.weathertoday.busines.model.DaylyWeatherModel
+import ru.weather.weathertoday.busines.model.DailyWeatherModel
 
-class AdapterDailyWeather() : BaseAdapters<DaylyWeatherModel>()  {
+class AdapterDailyWeather() : BaseAdapters<DailyWeatherModel>()  {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyViewHolder {

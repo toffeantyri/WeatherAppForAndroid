@@ -1,13 +1,14 @@
 package ru.weather.weathertoday.busines.model
 
-data class HourlyWeatherModel(
+data class Current(
     val clouds: Int,
     val dew_point: Double,
     val dt: Int,
     val feels_like: Double,
     val humidity: Int,
-    val pop: Int,
     val pressure: Int,
+    val sunrise: Int,
+    val sunset: Int,
     val temp: Double,
     val uvi: Double,
     val visibility: Int,

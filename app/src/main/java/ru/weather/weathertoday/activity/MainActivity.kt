@@ -174,7 +174,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     override fun displayLocation(data: String) {
         tv_main_city.text = data
     }
-
+    //todo применить полученные данные
     override fun displayCurrentData(data: WeatherDataModel) {
         tv_main_city.text = "Moskow"
         tv_main_date.text = "01.01.2022"

@@ -9,6 +9,11 @@ import butterknife.ButterKnife
 import com.google.android.material.textview.MaterialTextView
 import ru.weather.weathertoday.R
 import ru.weather.weathertoday.busines.model.HourlyWeatherModel
+import ru.weather.weathertoday.view.DAY_WEEK_NAME_LONG
+import ru.weather.weathertoday.view.provideIcon
+import ru.weather.weathertoday.view.toDateFormatOf
+import ru.weather.weathertoday.view.toDegree
+import java.lang.StringBuilder
 
 class AdapterHourlyWeather() : BaseAdapters<HourlyWeatherModel>() {
 
@@ -20,26 +25,31 @@ class AdapterHourlyWeather() : BaseAdapters<HourlyWeatherModel>() {
     inner class HourlyViewHolder(itemView: View) : BaseViewHolder(itemView) {
         //findViewById by ButterKnife
         @BindView(R.id.tv_hourly_time)
-        lateinit var time : MaterialTextView
+        lateinit var time: MaterialTextView
 
         @BindView(R.id.tv_hourly_temp)
-        lateinit var temperature : MaterialTextView
+        lateinit var temperature: MaterialTextView
 
         @BindView(R.id.tv_hourly_vlazhnost)
-        lateinit var poprate : MaterialTextView
+        lateinit var poprate: MaterialTextView
 
         @BindView(R.id.iv_hourly_weather_stat)
-        lateinit var image : ImageView
+        lateinit var image: ImageView
 
         init {
             ButterKnife.bind(this, itemView)
         }
 
         override fun bindView(position: Int) {
-            time.text = "14:00"
-            temperature.text = "15"+"\u00b0"
-            poprate.text = "25" + "%"
-            image.setImageResource(R.drawable.ic_sun_24dp)
+            mData[position].apply {
+                time.text = dt.toDateFormatOf(DAY_WEEK_NAME_LONG)
+                temperature.text =
+                    StringBuilder().append(temp.toDegree()).append("\u00b0").toString()
+                poprate.text = pop.toString()
+                image.setImageResource(weather[0].icon.provideIcon())
+
+            }
+
         }
     }
 }

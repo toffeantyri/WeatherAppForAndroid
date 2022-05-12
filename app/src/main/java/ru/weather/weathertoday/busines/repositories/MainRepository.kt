@@ -14,7 +14,7 @@ class MainRepository(api: ApiProvider) : BaseRepository<MainRepository.ServerRes
 
     fun reloadData(lat: String, lon: String) {
         //zip обьединяет 2 запроса, выполняет паралельно, в результат уходит в лямбду где:
-        // weatherData первый запрос? geoCoding второй запрос лямбда на выходе выдает нам :
+        // weatherData первый запрос? geoCoding второй запрос -> лямбда на выходе выдает нам :
         // класс ServerResponse с данными из обоих запросов! ВАУ!
         Observable.zip(
             api.provideWeatherApi().getWeatherForecast(lat, lon),
@@ -29,7 +29,7 @@ class MainRepository(api: ApiProvider) : BaseRepository<MainRepository.ServerRes
         )
             .subscribeOn(Schedulers.io()) //запускуается в BackGround потоке
             .doOnNext{ /* todo тут будет добавление обьекта в БД*/} // сделает это или next
-           /* .onErrorResumeNext { todo извлечение из базы данных }*/ // при ошибке возьмет данные из БД и добавит ошибку в SAerverResponce
+           /* .onErrorResumeNext { todo извлечение из базы данных }*/ // при ошибке возьмет данные из БД и добавит ошибку в ServerResponse
             .observeOn(AndroidSchedulers.mainThread()) // вернёт данные в MainThread
             .subscribe({
                 dataEmitter.onNext(it)

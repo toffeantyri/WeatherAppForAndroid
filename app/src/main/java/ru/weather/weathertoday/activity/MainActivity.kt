@@ -1,5 +1,6 @@
 package ru.weather.weathertoday.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.location.Location
@@ -22,17 +23,18 @@ import ru.weather.weathertoday.busines.model.DailyWeatherModel
 import ru.weather.weathertoday.busines.model.HourlyWeatherModel
 import ru.weather.weathertoday.busines.model.WeatherDataModel
 import ru.weather.weathertoday.presenters.MainPresenter
-import ru.weather.weathertoday.view.MainView
+import ru.weather.weathertoday.view.*
 import ru.weather.weathertoday.view.mainAdapters.DailyItem
 import ru.weather.weathertoday.view.mainAdapters.HourlyItem
 import ru.weather.weathertoday.view.mainAdapters.AdapterDailyWeather
 import ru.weather.weathertoday.view.mainAdapters.AdapterHourlyWeather
+import java.lang.StringBuilder
 
 const val TAG = "GEO"
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
-//-------------geo var ---------------------
+    //-------------geo var ---------------------
     private val geoService by lazy { LocationServices.getFusedLocationProviderClient(this) }
     private val locationRequest by lazy { initLocationRequest() }
     private lateinit var mLocation: Location
@@ -50,20 +52,16 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     private val mainPresenter by moxyPresenter { MainPresenter() }
 
 
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.d(TAG, "onCreate MainActivity")
 
-
         initTestView()
-
 
         initRvHourly()
         initRvDaily()
-        //---------------------------------------------------------------------------------------------------------------
-
-
         //до обноления метосположения
         mainPresenter.enable()
 
@@ -73,7 +71,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     }
 
-    fun initRvHourly() {
+    private fun initRvHourly() {
         adapterHourly = AdapterHourlyWeather()
         main_hourly_rc_list.layoutManager =
             LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
@@ -81,7 +79,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         main_hourly_rc_list.setHasFixedSize(true)
     }
 
-    fun initRvDaily() {
+    private fun initRvDaily() {
         adapterDaily = AdapterDailyWeather()
         main_daily_rc_list.apply {
             adapter = adapterDaily
@@ -91,7 +89,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         }
     }
 
-    fun initTestView() {
+    private fun initTestView() {
         tv_main_city.text = "Moskow"
         tv_main_date.text = "01.01.2022"
 
@@ -112,15 +110,15 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
 
     //проверка включен ли GPS
-    fun checkGpsStatus(): Boolean {
+    private fun checkGpsStatus(): Boolean {
         locationManager =
             applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
 
     //Если GPS отключен - откроется диалог и по кнопке Ок - откроются настройки включения GPS
-    fun checkAndOpenOptionGpsIfGpsOff() {
-        if (checkGpsStatus() == false) {
+    private fun checkAndOpenOptionGpsIfGpsOff() {
+        if (!checkGpsStatus()) {
             MaterialAlertDialogBuilder(this)
                 .setTitle("GPS отключен")
                 .setMessage("Перейти настройкам GPS")
@@ -157,14 +155,12 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             for (location in p0.locations) {
                 Log.d(TAG, "onLocationResult locations count: ${p0.locations.size}")
                 mLocation = location
+                //когда обновляется местоположение - передаем сразу в презентер
                 mainPresenter.refresh(mLocation.latitude.toString(), mLocation.longitude.toString())
                 Log.d(TAG, "onLocationResult:lat: ${location.latitude}; lon: ${location.longitude}")
             }
         }
     }
-
-
-
 
 
 //----------------------location code-----------------------
@@ -174,23 +170,31 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     override fun displayLocation(data: String) {
         tv_main_city.text = data
     }
+
     //todo применить полученные данные
     override fun displayCurrentData(data: WeatherDataModel) {
-        tv_main_city.text = "Moskow"
-        tv_main_date.text = "01.01.2022"
+        data.apply {
+            tv_main_city.text = "" //todo город из geoData
+            iv_weather_status.setImageResource(current.weather[0].icon.provideIcon())
+            tv_current_temperature.text = StringBuilder().append(current.temp.toDegree()).append("\u00b0").toString()
+            daily[0].temp.apply {
+                min_temp_value.text = min.toDegree()
+                max_temp_value.text = max.toDegree()
+            }
+            davlenie_status.text =
+                StringBuilder().append(current.pressure.toString()).append("hPa").toString()
+            vlazhnost_status.text =
+                StringBuilder().append(current.humidity.toString()).append("%").toString()
+            skorost_vetra_status.text =
+                StringBuilder().append(current.wind_speed.toString()).append("m/s").toString()
+            sunrise_status.text = current.sunrise.toDateFormatOf(HOUR_DOUBLE_DOT_MINUTE)
+            sunset_status.text = current.sunset.toDateFormatOf(HOUR_DOUBLE_DOT_MINUTE)
 
-        iv_weather_status.setImageDrawable(getDrawable(R.drawable.ic_oblako_24))
-        tv_status_weather.text = "Облачно"
-        tv_current_temperature.text = "25" + "\u00b0"
-        min_temp_value.text = "19"
-        max_temp_value.text = "32"
+            iv_weather_image.setImageResource(R.mipmap.unionx4) // todo добавить метод для изменения картинки
+            tv_main_date.text = current.dt.toDateFormatOf(DAY_FULL_MONTH_NAME)
+            //tv_status_weather.text = ""
 
-        iv_weather_image.setImageResource(R.mipmap.unionx4)
-        davlenie_status.text = "15 mPa"
-        vlazhnost_status.text = "50%"
-        skorost_vetra_status.text = "15m/s"
-        sunrise_status.text = "6:00"
-        sunset_status.text = "20:00"
+        }
     }
 
     override fun displayHourlyData(data: List<HourlyWeatherModel>) {

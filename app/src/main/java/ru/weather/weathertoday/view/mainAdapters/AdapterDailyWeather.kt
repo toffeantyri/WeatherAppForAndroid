@@ -10,47 +10,50 @@ import com.google.android.material.textview.MaterialTextView
 import ru.weather.weathertoday.R
 import ru.weather.weathertoday.busines.model.DailyWeatherModel
 
-class AdapterDailyWeather() : BaseAdapters<DailyWeatherModel>()  {
+class AdapterDailyWeather() : BaseAdapters<DailyWeatherModel>() {
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return DailyViewHolder(inflater.inflate(R.layout.item_rc_daily_list,parent,false))
+        return DailyViewHolder(inflater.inflate(R.layout.item_rc_daily_list, parent, false))
     }
 
 
     class DailyViewHolder(itemView: View) : BaseAdapters.BaseViewHolder(itemView) {
         @BindView(R.id.tv_daily_date)
-        lateinit var date : MaterialTextView
+        lateinit var date: MaterialTextView
 
         @BindView(R.id.tv_vlazhnost_daily)
-        lateinit var poprate : MaterialTextView
+        lateinit var poprate: MaterialTextView
 
         @BindView(R.id.tv_mintemp_daily)
-        lateinit var tempMin : MaterialTextView
+        lateinit var tempMin: MaterialTextView
 
         @BindView(R.id.tv_maxtemp_daily)
-        lateinit var tempMax : MaterialTextView
+        lateinit var tempMax: MaterialTextView
 
         @BindView(R.id.iv_daily_weath_stat)
         lateinit var image: ImageView
 
         init {
-            ButterKnife.bind(this,itemView)
+            ButterKnife.bind(this, itemView)
         }
 
 
         override fun bindView(position: Int) {
-            date.text = "9 May"
-            poprate.text = "50" + "%"
-            tempMin.text = "10\u00b0"
-            tempMax.text = "20\u00b0"
-            image.setImageResource(R.drawable.ic_water_drop)
+
+                date.text = "9 May"
+                poprate.text = "50" + "%"
+                tempMin.text = "10\u00b0"
+                tempMax.text = "20\u00b0"
+                image.setImageResource(R.drawable.ic_water_drop)
+
+
+
         }
 
     }
-
-
 
 
 }

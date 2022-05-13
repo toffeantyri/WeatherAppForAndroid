@@ -67,8 +67,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
         //Обновление местоположения
         geoService.requestLocationUpdates(locationRequest, geoCallback, null)
-
-
     }
 
     private fun initRvHourly() {
@@ -168,13 +166,13 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     //---------------------------moxy code-----------------------------
     override fun displayLocation(data: String) {
-        tv_main_city.text = data
+        tv_main_city.text = data.toString()
+        Log.d(ru.weather.weathertoday.busines.repositories.TAG, "activity city data"+data)
     }
 
     //todo применить полученные данные
     override fun displayCurrentData(data: WeatherDataModel) {
         data.apply {
-            tv_main_city.text = "" //todo город из geoData
             iv_weather_status.setImageResource(current.weather[0].icon.provideIcon())
             tv_current_temperature.text = StringBuilder().append(current.temp.toDegree()).append("\u00b0").toString()
             daily[0].temp.apply {

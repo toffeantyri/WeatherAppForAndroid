@@ -9,6 +9,8 @@ import butterknife.ButterKnife
 import com.google.android.material.textview.MaterialTextView
 import ru.weather.weathertoday.R
 import ru.weather.weathertoday.busines.model.DailyWeatherModel
+import ru.weather.weathertoday.view.*
+import java.lang.StringBuilder
 
 class AdapterDailyWeather() : BaseAdapters<DailyWeatherModel>() {
 
@@ -20,7 +22,7 @@ class AdapterDailyWeather() : BaseAdapters<DailyWeatherModel>() {
     }
 
 
-    class DailyViewHolder(itemView: View) : BaseAdapters.BaseViewHolder(itemView) {
+   inner class DailyViewHolder(itemView: View) : BaseViewHolder(itemView) {
         @BindView(R.id.tv_daily_date)
         lateinit var date: MaterialTextView
 
@@ -42,12 +44,15 @@ class AdapterDailyWeather() : BaseAdapters<DailyWeatherModel>() {
 
 
         override fun bindView(position: Int) {
+            mData[position].apply {
+                date.text = dt.toDateFormatOf(DAY_WEEK_NAME_LONG)
+                poprate.text = pop.toPercentString("%")
+                tempMin.text = StringBuilder().append(temp.min.toDegree()).append("\u00b0").toString()
+                tempMax.text = StringBuilder().append(temp.max.toDegree()).append("\u00b0").toString()
+                image.setImageResource(weather[0].icon.provideIcon())
 
-                date.text = "9 May"
-                poprate.text = "50" + "%"
-                tempMin.text = "10\u00b0"
-                tempMax.text = "20\u00b0"
-                image.setImageResource(R.drawable.ic_water_drop)
+            }
+
 
 
 

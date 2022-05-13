@@ -9,10 +9,7 @@ import butterknife.ButterKnife
 import com.google.android.material.textview.MaterialTextView
 import ru.weather.weathertoday.R
 import ru.weather.weathertoday.busines.model.HourlyWeatherModel
-import ru.weather.weathertoday.view.DAY_WEEK_NAME_LONG
-import ru.weather.weathertoday.view.provideIcon
-import ru.weather.weathertoday.view.toDateFormatOf
-import ru.weather.weathertoday.view.toDegree
+import ru.weather.weathertoday.view.*
 import java.lang.StringBuilder
 
 class AdapterHourlyWeather() : BaseAdapters<HourlyWeatherModel>() {
@@ -42,10 +39,10 @@ class AdapterHourlyWeather() : BaseAdapters<HourlyWeatherModel>() {
 
         override fun bindView(position: Int) {
             mData[position].apply {
-                time.text = dt.toDateFormatOf(DAY_WEEK_NAME_LONG)
+                time.text = dt.toDateFormatOf(HOUR_DOUBLE_DOT_MINUTE)
                 temperature.text =
                     StringBuilder().append(temp.toDegree()).append("\u00b0").toString()
-                poprate.text = pop.toString()
+                poprate.text = pop.toPercentString("%")
                 image.setImageResource(weather[0].icon.provideIcon())
 
             }

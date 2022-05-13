@@ -95,12 +95,13 @@
             android:layout_gravity="center"
             android:layout_marginStart="5dp"
             android:textSize="16sp"
-            android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="@+id/iv_weather_status"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toEndOf="@+id/iv_weather_status"
             app:layout_constraintTop_toTopOf="@+id/iv_weather_status"
-            tools:text="Clear sky" />
+            tools:text="Clear sky"
+            android:theme="@style/MainTextBar"
+            />
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -133,14 +134,16 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/min_text" />
+                    android:text="@string/min_text"
+                    android:theme="@style/MainTextBar"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/min_temp_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    tools:text="15\u00b0" />
+                    tools:text="15\u00b0"
+                    android:theme="@style/MainTextBar"/>
             </LinearLayout>
 
             <LinearLayout
@@ -159,14 +162,16 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/max_text" />
+                    android:text="@string/max_text"
+                    android:theme="@style/MainTextBar"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/max_temp_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    tools:text="35\u00b0" />
+                    tools:text="35\u00b0"
+                    android:theme="@style/MainTextBar"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -200,7 +205,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
-                    tools:text="1.5 hPa" />
+                    tools:text="1.5 hPa"
+                    android:theme="@style/MainTextBar"/>
             </LinearLayout>
 
             <LinearLayout
@@ -219,7 +225,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
-                    tools:text="35%" />
+                    tools:text="35%"
+                    android:theme="@style/MainTextBar"/>
             </LinearLayout>
 
             <LinearLayout
@@ -237,7 +244,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
-                    tools:text="5 m/s" />
+                    tools:text="5 m/s"
+                    android:theme="@style/MainTextBar"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -275,7 +283,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
-                    tools:text="6:00" />
+                    tools:text="6:00"
+                    android:theme="@style/MainTextBar"/>
             </LinearLayout>
 
             <LinearLayout
@@ -294,7 +303,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
-                    tools:text="20:00" />
+                    tools:text="20:00"
+                    android:theme="@style/MainTextBar"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -190,7 +190,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
             iv_weather_image.setImageResource(R.mipmap.unionx4) // todo добавить метод для изменения картинки
             tv_main_date.text = current.dt.toDateFormatOf(DAY_FULL_MONTH_NAME)
-            //tv_status_weather.text = ""
+            tv_status_weather.text = current.weather[0].description 
 
         }
     }

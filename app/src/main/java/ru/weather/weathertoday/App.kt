@@ -3,22 +3,29 @@ package ru.weather.weathertoday
 import android.app.Application
 import android.content.Intent
 import android.util.Log
+import androidx.room.Room
 import ru.weather.weathertoday.activity.InitialActivity
 import ru.weather.weathertoday.activity.TAG
+import ru.weather.weathertoday.busines.room.OpenWeatherDataBase
 
 const val APP_SETTINGS = "App_settings"
 const val IS_STARTED_UP = "First_run"
 
 class App : Application() {
 
-    //todo link on respositiry
+        companion object {
+            //todo сделать DB как singleton
+           lateinit var db : OpenWeatherDataBase
+        }
 
     var flagIsStartedUp : Boolean = false
 
     override fun onCreate() {
         super.onCreate()
 
-        // todo init repo
+        db = Room.databaseBuilder(this, OpenWeatherDataBase::class.java, "OpenWeatherDB")
+            .fallbackToDestructiveMigration() // todo что бы не настраивать миграцию??? Убрать к релизу
+            .build()
 
 
         val preferences = getSharedPreferences(APP_SETTINGS, MODE_PRIVATE)

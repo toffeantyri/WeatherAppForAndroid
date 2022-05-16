@@ -4,8 +4,12 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="Divider_color">#707070</color>
+    <color name="transparent_black">#0D000000</color>
+    <color name="transparent">#00000000</color>
 
     <color name="Black">#000000</color>
+
+    <color name="purple_500">#954DFF</color>
 
 
 </resources>

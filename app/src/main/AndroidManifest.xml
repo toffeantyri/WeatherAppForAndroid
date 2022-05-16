@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <!-- todo allowBackUp - разрешение на бэкап (сохранение данных(как БД) после удаления) -->
     <application
         android:name=".App"
         android:allowBackup="false"
@@ -18,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.MenuActivity"></activity>
         <activity android:name=".activity.InitialActivity" />
         <activity
             android:name=".activity.MainActivity"

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_location"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="8dp"
+        android:layout_weight="0.2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="8dp"
+            android:layout_marginStart="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/item_search_city"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:text="City Name"
+                    style="MainTextViewStyle" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/item_state"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:text=", State"
+                    style="MainTextViewStyle" />
+            </LinearLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/item_search_country"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Country"
+                style="MainTextViewStyle" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="8dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/item_iv_favorite"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:backgroundTint="@android:color/transparent"
+            android:checkable="true"
+            app:iconSize="38dp"
+            app:icon="@drawable/item_favodit_icon_selector"
+            android:insetRight="8dp"
+            android:insetLeft="4dp"
+            android:insetTop="8dp"
+            android:insetBottom="8dp"
+            app:iconPadding="8dp"
+            app:iconGravity="textStart"
+            app:iconTint="?attr/colorControlNormal"
+            />
+
+    </FrameLayout>
+
+</LinearLayout>

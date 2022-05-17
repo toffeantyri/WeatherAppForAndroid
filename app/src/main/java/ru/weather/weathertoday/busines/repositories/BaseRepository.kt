@@ -19,7 +19,7 @@ abstract class BaseRepository<T>(val api: ApiProvider) {
     //асинх обращение к  ДБ
     protected fun roomTransaction(
         transaction: () -> T
-    ) = Observable.fromCallable { transaction() } //from callable преобразует вызываемый в наблюдаемый (результат функции )
+    ) = Observable.fromCallable { transaction() } //from callable преобразует вызываемый(transaction) в Observable
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe { dataEmitter.onNext(it) }

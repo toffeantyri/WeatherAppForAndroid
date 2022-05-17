@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_menu.*
 import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
 import ru.weather.weathertoday.R
 import ru.weather.weathertoday.busines.model.GeoCodingDataModel
+import ru.weather.weathertoday.presenters.MenuPresenter
 import ru.weather.weathertoday.view.MenuView
 import ru.weather.weathertoday.view.createObservable
 import ru.weather.weathertoday.view.mainAdapters.COORDINATES
@@ -19,15 +21,15 @@ import java.util.concurrent.TimeUnit
 
 class MenuActivity : MvpAppCompatActivity(), MenuView {
 
-    //todo add presenter
+  private val presenter by moxyPresenter { MenuPresenter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
 
-        //todo presenter.enable()
-        //todo presenter.getFavoriteList()
+        presenter.enable()
+        presenter.getFavoriteList()
 
         initCityList(predictions)
         initCityList(favorites)
@@ -40,7 +42,7 @@ class MenuActivity : MvpAppCompatActivity(), MenuView {
             .debounce(700, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                //todo if it notEmpty presenter.getFavorite()
+                if(it.isNullOrEmpty()) presenter.searchFor(it)
             }
 
     }
@@ -86,11 +88,11 @@ class MenuActivity : MvpAppCompatActivity(), MenuView {
 
     private val searchItemClickListener = object : CityListAdapter.SearchItemClickListener {
         override fun addToFavorite(item: GeoCodingDataModel) {
-            //todo presenter saveLocation
+            presenter.saveLocation(item)
         }
 
         override fun removeFromFavorite(item: GeoCodingDataModel) {
-            //todo presenter removeLocation
+            presenter.removeLocation(item)
         }
 
         override fun showWeatherIn(item: GeoCodingDataModel) {

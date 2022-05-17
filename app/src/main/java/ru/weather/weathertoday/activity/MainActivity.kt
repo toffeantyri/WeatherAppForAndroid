@@ -31,6 +31,7 @@ import ru.weather.weathertoday.view.mainAdapters.AdapterHourlyWeather
 import java.lang.StringBuilder
 
 const val TAG = "GEO"
+const val COORDINATES = "coordinates"
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
@@ -44,8 +45,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     //-----------------adapters var ----------------------
     lateinit var adapterHourly: AdapterHourlyWeather
     lateinit var adapterDaily: AdapterDailyWeather
-    lateinit var listHourly: ArrayList<HourlyItem>
-    lateinit var listDaily: ArrayList<DailyItem>
 //-----------------adapters var ----------------------
 
 
@@ -60,13 +59,31 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
         initTestView()
 
+        if (!intent.hasExtra(COORDINATES)) {
+            geoService.requestLocationUpdates(locationRequest, geoCallback, null)
+        } else {
+            val coord = intent!!.extras!!.getBundle(COORDINATES)
+            val loc = Location("")
+            loc.latitude = coord!!.getString("lat")!!.toDouble()
+            loc.longitude = coord!!.getString("lon")!!.toDouble()
+            mLocation = loc
+            mainPresenter.refresh(lat = mLocation.latitude.toString(), lon = mLocation.longitude.toString())
+        }
+
+        btn_main_menu.setOnClickListener {
+            val intent = Intent(this, MenuActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left, android.R.anim.fade_out)
+        }
+
         initRvHourly()
         initRvDaily()
+
         //до обноления метосположения
         mainPresenter.enable()
 
         //Обновление местоположения
-        geoService.requestLocationUpdates(locationRequest, geoCallback, null)
+        //geoService.requestLocationUpdates(locationRequest, geoCallback, null)
     }
 
     private fun initRvHourly() {
@@ -167,7 +184,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     //---------------------------moxy code-----------------------------
     override fun displayLocation(data: String) {
         tv_main_city.text = data.toString()
-        Log.d(ru.weather.weathertoday.busines.repositories.TAG, "activity city data"+data)
+        Log.d(TAG, "activity city data" + data)
     }
 
     //todo применить полученные данные
@@ -190,7 +207,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
             iv_weather_image.setImageResource(R.mipmap.unionx4) // todo добавить метод для изменения картинки
             tv_main_date.text = current.dt.toDateFormatOf(DAY_FULL_MONTH_NAME)
-            tv_status_weather.text = current.weather[0].description 
+            tv_status_weather.text = current.weather[0].description
 
         }
     }

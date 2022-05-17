@@ -11,7 +11,6 @@ import com.google.android.material.textview.MaterialTextView
 import ru.weather.weathertoday.R
 import ru.weather.weathertoday.busines.model.GeoCodingDataModel
 
-const val COORDINATES = "coordinates"
 
 class CityListAdapter : BaseAdapters<GeoCodingDataModel>() {
 

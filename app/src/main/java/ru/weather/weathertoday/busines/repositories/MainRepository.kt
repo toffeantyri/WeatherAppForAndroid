@@ -5,12 +5,12 @@ import com.google.gson.Gson
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import ru.weather.weathertoday.activity.TAG
 import ru.weather.weathertoday.busines.ApiProvider
 import ru.weather.weathertoday.busines.model.WeatherDataModel
 import ru.weather.weathertoday.busines.room.WeatherDataEntity
 
 
-const val TAG = "MAINREPO"
 
 class MainRepository(api: ApiProvider) : BaseRepository<MainRepository.ServerResponse>(api) {
 

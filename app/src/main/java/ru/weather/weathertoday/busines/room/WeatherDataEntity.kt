@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-//модель для Room БД
+//модель для Room БД для погоды
 @Entity(tableName = "WeatherData")
 data class WeatherDataEntity(
     @PrimaryKey val id : Int = 1,

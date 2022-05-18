@@ -33,6 +33,12 @@
        <item name="android:layout_height">20dp</item>
    </style>
 
+    <style name="MainTextViewStyle" parent="MainTextBar">
+        <item name="android:fontFamily">serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
 
 
 </resources>

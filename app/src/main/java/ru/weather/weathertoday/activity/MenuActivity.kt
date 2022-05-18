@@ -3,6 +3,7 @@ package ru.weather.weathertoday.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ import ru.weather.weathertoday.busines.model.GeoCodingDataModel
 import ru.weather.weathertoday.presenters.MenuPresenter
 import ru.weather.weathertoday.view.MenuView
 import ru.weather.weathertoday.view.createObservable
+import ru.weather.weathertoday.view.mainAdapters.BaseAdapters
 import ru.weather.weathertoday.view.mainAdapters.CityListAdapter
 import java.util.concurrent.TimeUnit
 
@@ -35,13 +37,14 @@ class MenuActivity : MvpAppCompatActivity(), MenuView {
 
         //Во viewUtil метод возвращающий Flowable
         //тут когда начинаешь печатеть - doOnNext - включает видимость загрузки
-        //задержка в милисекундах и затем подписчик делает запрос к Favorite и ответ потом придёт в ? листFavorite?
+        //задержка в секундах и затем подписчик делает запрос к Favorite и ответ потом придёт в ? листFavorite?
         search_field.createObservable()
             .doOnNext { setLoading(true) }
-            .debounce(700, TimeUnit.MILLISECONDS)
+            .debounce(1, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                if(it.isNullOrEmpty()) presenter.searchFor(it)
+                Log.d(TAG, "search_field: $it")
+                if(!it.isNullOrEmpty()) presenter.searchFor(it)
             }
 
     }
@@ -60,11 +63,13 @@ class MenuActivity : MvpAppCompatActivity(), MenuView {
     }
 
     override fun fillPredictionList(data: List<GeoCodingDataModel>) {
-        //todo
+        Log.d(TAG, "MenuAct fillPrediction : $data")
+        (predictions.adapter as CityListAdapter).updateData(data)
     }
 
     override fun fillFavoriteList(data: List<GeoCodingDataModel>) {
-        //todo
+        Log.d(TAG, "MenuAct fillFavorite : $data")
+        (favorites.adapter as CityListAdapter).updateData(data)
     }
 
     //-----------------------------moxy view-----------------------------------

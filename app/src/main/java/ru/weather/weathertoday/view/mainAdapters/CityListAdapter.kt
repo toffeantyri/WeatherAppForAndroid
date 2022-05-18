@@ -54,6 +54,9 @@ class CityListAdapter : BaseAdapters<GeoCodingDataModel>() {
 
         override fun bindView(position: Int) {
             mLocation.setOnClickListener {
+                clickListener.showWeatherIn(mData[position])
+            }
+            mFavorite.setOnClickListener {
                 val item = mData[position]
                 when ((it as MaterialButton).isChecked) {
                     true -> {
@@ -68,7 +71,7 @@ class CityListAdapter : BaseAdapters<GeoCodingDataModel>() {
             }
             mData[position].apply {
                 mState.text = if (!state.isNullOrEmpty()) itemView.context.getString(R.string.comma, state) else ""
-                mCity.text = local_names.ru // todo default ru
+                mCity.text = name//if(local_names != null) local_names.en else "" // todo default
                 mCountry.text = country
                 mFavorite.isChecked = isFavorite
             }

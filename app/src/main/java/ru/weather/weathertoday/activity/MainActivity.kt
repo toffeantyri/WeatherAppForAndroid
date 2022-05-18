@@ -122,7 +122,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         val request = LocationRequest.create()
         return request.apply {
             interval = 30000 // ограничение по времени сколько будет ожидать обновления
-            fastestInterval = 15000
+            fastestInterval = 60000
             priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
         }
     }

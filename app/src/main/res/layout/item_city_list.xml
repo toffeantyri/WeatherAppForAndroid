@@ -7,19 +7,19 @@
     android:layout_marginStart="8dp">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/item_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/item_location"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardElevation="8dp"
-        android:layout_weight="0.2">
+        android:layout_weight="0.2"
+        app:cardForegroundColor="@android:color/transparent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:orientation="vertical"
-            android:paddingBottom="8dp"
-            android:layout_marginStart="8dp">
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -27,34 +27,40 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/item_search_city"
+                    style="@style/MainTextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/item_search_city"
+                    android:fontFamily=""
+                    android:text="City Name"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:text="City Name"
-                    style="MainTextViewStyle" />
+                    app:fontFamily="serif" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/item_state"
+                    style="@style/MainTextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/item_state"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
                     android:text=", State"
-                    style="MainTextViewStyle" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/item_search_country"
+                style="@style/MainTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
                 android:text="Country"
-                style="MainTextViewStyle" />
+                android:textSize="12sp" />
         </LinearLayout>
+
+
     </com.google.android.material.card.MaterialCardView>
 
     <FrameLayout
+        android:elevation="8dp"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -64,21 +70,21 @@
             android:id="@+id/item_iv_favorite"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:backgroundTint="@android:color/transparent"
             android:checkable="true"
             app:iconSize="38dp"
             app:icon="@drawable/item_favodit_icon_selector"
             android:insetRight="8dp"
-            android:insetLeft="4dp"
+            android:insetLeft="8dp"
             android:insetTop="8dp"
             android:insetBottom="8dp"
             app:iconPadding="8dp"
             app:iconGravity="textStart"
-            app:iconTint="?attr/colorControlNormal"
+            app:iconTint="?attr/colorPrimary"
             />
 
     </FrameLayout>
+
 
 </LinearLayout>

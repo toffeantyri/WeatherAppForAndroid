@@ -8,7 +8,7 @@ import ru.weather.weathertoday.busines.model.LocalNames
 @Entity(tableName = "GeoCode", primaryKeys = ["lat", "lon"])
 data class GeoCodeEntity(
     @ColumnInfo(name = "name") val name : String,
-    @Embedded val localNames : LocalNames,
+    @Embedded val localNames : LocalNames?,
     @ColumnInfo(name = "lat") val lat : String,
     @ColumnInfo(name = "lon") val lon : String,
     @ColumnInfo(name = "country") val country : String,

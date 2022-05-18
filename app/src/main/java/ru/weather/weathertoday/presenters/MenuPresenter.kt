@@ -32,6 +32,7 @@ class MenuPresenter : BasePresenter<MenuView>() {
     }
 
     fun searchFor(cityName: String) {
+        Log.d(TAG, "presenter: searchFor insert : $cityName")
         repo.getCities(cityName)
     }
 

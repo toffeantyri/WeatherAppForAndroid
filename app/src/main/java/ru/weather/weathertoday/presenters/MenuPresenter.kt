@@ -21,7 +21,7 @@ class MenuPresenter : BasePresenter<MenuView>() {
                 viewState.fillFavoriteList(it.data)
             } else {
                 Log.d(TAG, "enable CURRENT : ${it.data}")
-                viewState.fillPredicitonList(it.data)
+                viewState.fillPredictionList(it.data)
             }
 
         }

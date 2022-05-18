@@ -56,7 +56,6 @@ class MainRepository(api: ApiProvider) : BaseRepository<MainRepository.ServerRes
 
     }
 
-    data class ServerResponse(val cityName: String, val weatherData: WeatherDataModel, val error: Throwable? = null) {
-    }
+    data class ServerResponse(val cityName: String, val weatherData: WeatherDataModel, val error: Throwable? = null)
 
 }

@@ -1,20 +1,15 @@
 package ru.weather.weathertoday.activity
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
-import android.provider.Settings
 import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
@@ -24,11 +19,8 @@ import ru.weather.weathertoday.busines.model.HourlyWeatherModel
 import ru.weather.weathertoday.busines.model.WeatherDataModel
 import ru.weather.weathertoday.presenters.MainPresenter
 import ru.weather.weathertoday.view.*
-import ru.weather.weathertoday.view.mainAdapters.DailyItem
-import ru.weather.weathertoday.view.mainAdapters.HourlyItem
 import ru.weather.weathertoday.view.mainAdapters.AdapterDailyWeather
 import ru.weather.weathertoday.view.mainAdapters.AdapterHourlyWeather
-import java.lang.StringBuilder
 
 const val TAG = "GEO"
 const val COORDINATES = "coordinates"
@@ -39,12 +31,11 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     private val geoService by lazy { LocationServices.getFusedLocationProviderClient(this) }
     private val locationRequest by lazy { initLocationRequest() }
     private lateinit var mLocation: Location
-    lateinit var locationManager: LocationManager
 //-------------geo var ---------------------
 
     //-----------------adapters var ----------------------
-    lateinit var adapterHourly: AdapterHourlyWeather
-    lateinit var adapterDaily: AdapterDailyWeather
+    private lateinit var adapterHourly: AdapterHourlyWeather
+    private lateinit var adapterDaily: AdapterDailyWeather
 //-----------------adapters var ----------------------
 
 
@@ -65,7 +56,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             val coord = intent!!.extras!!.getBundle(COORDINATES)
             val loc = Location("")
             loc.latitude = coord!!.getString("lat")!!.toDouble()
-            loc.longitude = coord!!.getString("lon")!!.toDouble()
+            loc.longitude = coord.getString("lon")!!.toDouble()
             mLocation = loc
             mainPresenter.refresh(lat = mLocation.latitude.toString(), lon = mLocation.longitude.toString())
         }
@@ -79,7 +70,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         initRvHourly()
         initRvDaily()
 
-        //до обноления метосположения
+        //до обноления метосположения должно быть по моему
         mainPresenter.enable()
 
         //Обновление местоположения
@@ -104,6 +95,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initTestView() {
         tv_main_city.text = "Moskow"
         tv_main_date.text = "01.01.2022"
@@ -121,32 +113,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         sunrise_status.text = "6:00"
         sunset_status.text = "20:00"
 
-    }
-
-
-    //проверка включен ли GPS
-    private fun checkGpsStatus(): Boolean {
-        locationManager =
-            applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-    }
-
-    //Если GPS отключен - откроется диалог и по кнопке Ок - откроются настройки включения GPS
-    private fun checkAndOpenOptionGpsIfGpsOff() {
-        if (!checkGpsStatus()) {
-            MaterialAlertDialogBuilder(this)
-                .setTitle("GPS отключен")
-                .setMessage("Перейти настройкам GPS")
-                .setPositiveButton("Ok") { _, _ ->
-                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                    startActivity(intent)
-                }
-                .setNegativeButton("cancel") { dialog, _ ->
-                    dialog.dismiss()
-                    Toast.makeText(this, "Текущее местоположение недоступно", Toast.LENGTH_SHORT)
-                        .show()
-                }.create().show()
-        }
     }
 
 //----------------------location code-----------------------
@@ -184,10 +150,9 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     //---------------------------moxy code-----------------------------
     override fun displayLocation(data: String) {
         tv_main_city.text = data.toString()
-        Log.d(TAG, "activity city data" + data)
+        Log.d(TAG, "activity city data $data")
     }
 
-    //todo применить полученные данные
     override fun displayCurrentData(data: WeatherDataModel) {
         data.apply {
             iv_weather_status.setImageResource(current.weather[0].icon.provideIcon())
@@ -220,13 +185,9 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         (main_daily_rc_list.adapter as AdapterDailyWeather).updateData(data)
     }
 
-    override fun displayError(error: Throwable) {
+    override fun displayError(error: Throwable) {}
 
-    }
-
-    override fun setLoading(flag: Boolean) {
-
-    }
+    override fun setLoading(flag: Boolean) {}
     //---------------------------moxy code-----------------------------
 
 }

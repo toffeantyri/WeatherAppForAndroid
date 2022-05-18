@@ -10,7 +10,7 @@ interface MenuView : MvpView {
     fun setLoading(flag: Boolean)
 
     @AddToEndSingle
-    fun fillPredicitonList(data: List<GeoCodingDataModel>)
+    fun fillPredictionList(data: List<GeoCodingDataModel>)
 
     @AddToEndSingle
     fun fillFavoriteList(data: List<GeoCodingDataModel>)

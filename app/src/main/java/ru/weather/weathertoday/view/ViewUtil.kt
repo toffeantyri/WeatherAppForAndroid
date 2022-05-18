@@ -40,7 +40,8 @@ fun String.provideIcon() = when (this) {
 
 
 //функция расширение - возвращает поток стрингов, textChangeListener наследуется от TextWatcher
-//методы там же, а тут переопределяется нужный нам метод после ввода Emitter (Flowable) получет в метод onNext Строку(дальше смотри в место использования)
+//методы там же, а тут переопределяется нужный нам метод после ввода Emitter (Flowable)
+// получет в метод onNext Строку(дальше смотри в место использования)
 fun TextInputEditText.createObservable(): Flowable<String> {
     return Flowable.create({
         addTextChangedListener(object : SimpleTextWatcher() {

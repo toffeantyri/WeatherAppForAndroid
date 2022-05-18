@@ -15,7 +15,6 @@ import ru.weather.weathertoday.busines.model.GeoCodingDataModel
 import ru.weather.weathertoday.presenters.MenuPresenter
 import ru.weather.weathertoday.view.MenuView
 import ru.weather.weathertoday.view.createObservable
-import ru.weather.weathertoday.view.mainAdapters.COORDINATES
 import ru.weather.weathertoday.view.mainAdapters.CityListAdapter
 import java.util.concurrent.TimeUnit
 
@@ -60,7 +59,7 @@ class MenuActivity : MvpAppCompatActivity(), MenuView {
         loading.visibility = if (flag) View.VISIBLE else View.GONE
     }
 
-    override fun fillPredicitonList(data: List<GeoCodingDataModel>) {
+    override fun fillPredictionList(data: List<GeoCodingDataModel>) {
         //todo
     }
 

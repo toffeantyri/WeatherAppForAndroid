@@ -1,11 +1,11 @@
 package ru.weather.weathertoday.busines.repositories
 
-import androidx.room.Query
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.schedulers.Schedulers
 import ru.weather.weathertoday.busines.ApiProvider
 import ru.weather.weathertoday.busines.model.GeoCodingDataModel
+import ru.weather.weathertoday.busines.model.toDataModel
+import ru.weather.weathertoday.busines.model.toEntity
 
 
 const val SAVED = 1
@@ -28,11 +28,11 @@ class MenuRepository(api: ApiProvider) : BaseRepository<MenuRepository.Content>(
     }
 
     fun add(data: GeoCodingDataModel) {
-        getFavoritelListWith{ dbAccess.add(data)} // todo map.toEntity
+        getFavoritelListWith { dbAccess.add(data.toEntity()) } // todo map.toEntity
     }
 
     fun remove(data: GeoCodingDataModel) {
-        getFavoritelListWith { dbAccess.remove(data) } //todo
+        getFavoritelListWith { dbAccess.remove(data.toEntity()) } //todo
     }
 
     fun updateFavorite() {
@@ -42,7 +42,7 @@ class MenuRepository(api: ApiProvider) : BaseRepository<MenuRepository.Content>(
     private fun getFavoritelListWith(daoQuery: (() -> Unit)? = null) {
         roomTransaction {
             daoQuery?.let { it() }
-            Content(dbAccess.getAll().map {   }, SAVED)  /* todo it.mapToModel*/
+            Content(dbAccess.getAll().map { it.toDataModel() }, SAVED)  /* todo it.mapToModel*/
         }
     }
 

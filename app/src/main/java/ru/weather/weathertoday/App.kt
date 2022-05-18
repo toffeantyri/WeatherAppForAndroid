@@ -13,12 +13,12 @@ const val IS_STARTED_UP = "First_run"
 
 class App : Application() {
 
-        companion object {
-            //todo сделать DB как singleton
-           lateinit var db : OpenWeatherDataBase
-        }
+    companion object {
+        //todo сделать DB как singleton
+        lateinit var db: OpenWeatherDataBase
+    }
 
-    var flagIsStartedUp : Boolean = false
+    private var flagIsStartedUp: Boolean = false
 
     override fun onCreate() {
         super.onCreate()
@@ -32,7 +32,7 @@ class App : Application() {
         flagIsStartedUp = preferences.contains(IS_STARTED_UP)
         //если нет такой пары ключ значение - создаст и по умолчанию false???
 
-        if(!flagIsStartedUp){
+        if (!flagIsStartedUp) {
             val intent = Intent(this, InitialActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)

@@ -4,7 +4,6 @@ import android.util.Log
 import ru.weather.weathertoday.activity.TAG
 import ru.weather.weathertoday.busines.ApiProvider
 import ru.weather.weathertoday.busines.repositories.MainRepository
-import ru.weather.weathertoday.busines.repositories.TAG
 import ru.weather.weathertoday.view.MainView
 
 

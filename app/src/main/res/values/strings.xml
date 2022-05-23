@@ -11,4 +11,23 @@
     <string name="comma">, %1$s</string>
 
 
+    <string name="title_setting">Setting</string>
+
+    <string name="provided_by">Provided by</string>
+    <string name="provided_descr">All data provided by Open WeatherMap </string>
+
+    <string name="temperature">Temperature</string>
+    <string name="wind_speed">Wind speed</string>
+    <string name="pressure">Pressure</string>
+
+    <string name="temp_c" translatable="false">° C</string>
+    <string name="temp_f" translatable="false">° F</string>
+
+    <string name="ms" translatable="false">m/s</string>
+    <string name="kmh" translatable="false">km/h</string>
+
+    <string name="mnhg" translatable="false">mnHg</string>
+    <string name="hpa" translatable="false">hPa</string>
+
+
 </resources>

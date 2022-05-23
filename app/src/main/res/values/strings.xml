@@ -7,27 +7,32 @@
 
 
     <string name="location">Location</string>
-
-    <string name="comma">, %1$s</string>
-
-
-    <string name="title_setting">Setting</string>
-
-    <string name="provided_by">Provided by</string>
-    <string name="provided_descr">All data provided by Open WeatherMap </string>
-
     <string name="temperature">Temperature</string>
     <string name="wind_speed">Wind speed</string>
     <string name="pressure">Pressure</string>
+    <string name="comma">, %1$s</string>
+    <string name="title_setting">Setting</string>
+
+    <string name="provided_by">Provided by</string>
+    <string name="provided_descr">All data provided by Open Weather Map \n using One Call API</string>
+
+
+
 
     <string name="temp_c" translatable="false">° C</string>
+    <string name="temp_c_post" >%1$s° C</string>
     <string name="temp_f" translatable="false">° F</string>
+    <string name="temp_f_post" >%1$s° F</string>
 
     <string name="ms" translatable="false">m/s</string>
+    <string name="ms_post" >%1$s m/s</string>
     <string name="kmh" translatable="false">km/h</string>
+    <string name="kmh_post" >%1$s km/h</string>
 
     <string name="mnhg" translatable="false">mnHg</string>
+    <string name="mnhg_post" >%1$s mnHg</string>
     <string name="hpa" translatable="false">hPa</string>
+    <string name="hpa_post" >%1$s hPa</string>
 
 
 </resources>

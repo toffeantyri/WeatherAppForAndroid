@@ -50,6 +50,25 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
         initTestView()
 
+        btn_main_menu.setOnClickListener {
+            val intent = Intent(this, MenuActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left, android.R.anim.fade_out)
+        }
+
+        btn_main_setting.setOnClickListener {
+            val intent = Intent(this, SettingActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, android.R.anim.fade_out)
+        }
+
+        initRvHourly()
+        initRvDaily()
+
+        //до обноления метосположения должно быть по моему
+        mainPresenter.enable()
+
+        //Обновление местоположения
         if (!intent.hasExtra(COORDINATES)) {
             geoService.requestLocationUpdates(locationRequest, geoCallback, null)
         } else {
@@ -61,20 +80,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             mainPresenter.refresh(lat = mLocation.latitude.toString(), lon = mLocation.longitude.toString())
         }
 
-        btn_main_menu.setOnClickListener {
-            val intent = Intent(this, MenuActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_left, android.R.anim.fade_out)
-        }
 
-        initRvHourly()
-        initRvDaily()
-
-        //до обноления метосположения должно быть по моему
-        mainPresenter.enable()
-
-        //Обновление местоположения
-        //geoService.requestLocationUpdates(locationRequest, geoCallback, null)
     }
 
     private fun initRvHourly() {
